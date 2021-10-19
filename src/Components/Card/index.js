@@ -1,8 +1,9 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
+import { Card, Chip } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import CopyToClipboardInput from "../CopyToClipboard";
 
 const name = {
   display: "-webkit-box",
@@ -24,7 +25,7 @@ const description = {
 export default function CustomCard({ repo }) {
   return (
     <Box sx={{ minWidth: 350, maxWidth: 350 }}>
-      <Card sx={{ textAlign: "left", height: 140 }} variant="outlined">
+      <Card sx={{ textAlign: "left", height: 200 }} variant="outlined">
         <CardContent>
           <Typography style={name} variant="h5" component="div">
             {repo.name}
@@ -32,9 +33,12 @@ export default function CustomCard({ repo }) {
           <Typography sx={{ mb: 1 }} color="text.secondary">
             {repo.private === true ? "private" : "public"}
           </Typography>
-          <Typography style={description} variant="body2">
-            {repo.description}
-          </Typography>
+          <div style={{ height: 50 }}>
+            <Typography style={description} variant="body2">
+              {repo.description}
+            </Typography>
+          </div>
+          <CopyToClipboardInput link={repo.clone_url} />
         </CardContent>
       </Card>
     </Box>

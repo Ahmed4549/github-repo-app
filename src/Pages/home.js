@@ -3,6 +3,17 @@ import banner from "../Assets/developer.png";
 import { Button, Container, Grid, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
+const styling = {
+  "@keyframes skeletonLoading": {
+    "0%": {
+      backgroundColor: "hsl(200, 20%, 70%)",
+    },
+    "100%": {
+      backgroundColor: "hsl(200, 20%, 95%)",
+    },
+  },
+};
+
 const container = {
   padding: "2rem",
 };
@@ -26,6 +37,7 @@ const btn = {
 const img = {
   width: "100%",
   height: "auto",
+  animation: `${styling} 5s linear infinite`,
 };
 const link = {
   textDecoration: "none",

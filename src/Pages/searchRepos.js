@@ -48,6 +48,7 @@ const cardContainer = {
   display: "flex",
   flexWrap: "wrap",
   gap: "2.688rem",
+  justifyContent: "center",
 };
 const notFoundHeading = {
   fontSize: "8rem",
@@ -86,7 +87,8 @@ const SearchRepos = () => {
     setUsernameError(value ? false : true);
   };
 
-  const submitHandler = () => {
+  const submitHandler = (e) => {
+    e.preventDefault();
     const isValid = validate();
     if (isValid) {
       setLoader(true);
@@ -121,19 +123,26 @@ const SearchRepos = () => {
 
   return (
     <Container style={container}>
-      <Typography style={heading}>You're almost there dude.</Typography>
+      <Typography style={heading}>
+        {repos && repos.length > 0
+          ? "Here are your repositories!"
+          : `You're almost there dude.`}
+      </Typography>
       <div style={inputContainer}>
         <div style={innnerContainer}>
-          <TextField
-            name="username"
-            value={username}
-            onChange={usernameChangeHandler}
-            style={textField}
-            id="outlined-basic"
-            label="GitHub Username"
-            variant="outlined"
-            error={usernameError}
-          />
+          <form onSubmit={submitHandler}>
+            <TextField
+              name="username"
+              value={username}
+              onChange={usernameChangeHandler}
+              style={textField}
+              id="outlined-basic"
+              label="GitHub Username"
+              variant="outlined"
+              error={usernameError}
+              autoComplete="off"
+            />
+          </form>
           <div style={{ display: "flex", gap: ".6rem", height: "100%" }}>
             <Button onClick={submitHandler} style={btn}>
               Get my repos!
@@ -179,6 +188,7 @@ const SearchRepos = () => {
         <CircularProgress color="inherit" />
       </Backdrop>
       <Snackbar
+        autoHideDuration={3000}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         open={snackbar}
         onClose={handleClose}
